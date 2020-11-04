@@ -1,0 +1,26 @@
+
+{
+    "rows": [{
+        "id": "Resource",//必须数据段 节点ID
+        "name": "资源",//必须数据段 节点名称
+        "level": "0",//必须数据段 节点层级,必须从0开始
+        "pid": null,//必须数据段 且顶级父节点的pId必须为null
+        "expand": true,//是否展开子节点
+        "disabled": false,//禁掉 checkbox  和 不能select
+        "icon": "",// 默认的icon是文件夹形式，可以自定义
+        "selected": true,//是否选中子节点文本
+        //ignore:true,//忽略节点，被忽略的节点将被禁用，且不参与联动
+        "checked": true //是否勾选(如果勾选，子节点也会全部勾选)
+    },{
+        "id": "Resource1",//必须数据段 节点ID
+        "name": "资源",//必须数据段 节点名称
+        "level": "1",//必须数据段 节点层级,必须从0开始
+        "pid": "Resource",//必须数据段 且顶级父节点的pId必须为null
+        "expand": true,//是否展开子节点
+        "disabled": false,//禁掉 checkbox  和 不能select
+        "icon": "",// 默认的icon是文件夹形式，可以自定义
+        "selected": true,//是否选中子节点文本
+        //ignore:true,//忽略节点，被忽略的节点将被禁用，且不参与联动
+        "checked": true //是否勾选(如果勾选，子节点也会全部勾选)
+    }]
+}  

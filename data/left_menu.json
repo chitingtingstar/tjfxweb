@@ -1,0 +1,15 @@
+{
+    "resultCode": 0,
+    "data": [{
+            "name": "抗菌药物查询",
+            "icon": "icon-home",
+            "markId":"antibioticsQuery",
+            "href":"/tjfxWeb/html/antibioticsQuery.html"
+        },{
+            "name": "抗菌药物查询",
+            "icon": "icon-home",
+            "markId":"antibioticsQuery",
+            "href":"/tjfxWeb/html/antibioticsQuery.html"
+        }
+    ]
+}

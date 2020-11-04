@@ -1,0 +1,30 @@
+{
+    "code": 0,
+    "message": "成功",
+    "data":{
+        "total":100,
+        "rows": [
+            {
+
+                "menuId": 1,
+                "menuName": "用户管理",
+                "menuUrl":"/platform/webViews/user/userlist.html",
+                "menuParentName":"系统配置",
+                "menuPartentId":"1",
+                "menuLevel":"1",
+                "menuOrder":"2",
+                "menuEnabled":"0"
+            },
+            {
+
+                "menuId": 2,
+                "menuName": "用户管理",
+                "menuUrl":"/platform/webViews/user/userlist.html",
+                "menuParent":"系统配置",
+                "menuLevel":"1",
+                "menuOrder":"2",
+                "menuEnabled":"1"
+            }
+        ]
+    }
+}

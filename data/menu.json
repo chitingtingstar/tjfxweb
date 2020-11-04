@@ -1,0 +1,98 @@
+[
+    {
+        "name": "首页",
+        "level": "1",
+        "icon":"icon-home",
+        "pId": null,
+        "id": "home"
+    },
+    {
+        "name": "系统设置",
+        "level": "1",
+        "icon":"icon-admin",
+        "pId": null,
+        "id": "system"
+    },
+    {
+        "name": "用户管理",
+        "level": "2",
+        "pId": "system",
+        "id": "user"
+    },
+    {
+        "name": "角色管理",
+        "level": "2",
+        "pId": "system",
+        "id": "role"
+    },
+    {
+        "name": "菜单管理",
+        "level": "2",
+        "pId": "system",
+        "id": "menu"
+    },
+    {
+        "name": "日志管理",
+        "level": "2",
+        "pId": "system",
+        "id": "log"
+    },
+    {
+        "name": "目录管理",
+        "level": "1",
+        "icon":"icon-log",
+        "pId": null,
+        "id":"directory"
+    },
+    {
+        "name": "医疗机构",
+        "level": "2",
+        "pId":"directory",
+        "id": "hospital",
+    },{
+        "name": "科室",
+        "level": "2",
+        "id":"department",
+        "pId": "directory",
+    },
+    {
+        "name": "点评统计",
+        "level": "1",
+        "icon":"icon-property",
+        "pId": null,
+        "id": "comment"
+    },
+    {
+        "name": "统计分析",
+        "level": "1",
+        "icon":"icon-report",
+        "pId": null,
+        "id": "analysis"
+    },
+    {
+        "name": "问题数据",
+        "level": "1",
+        "icon":"icon-warning",
+        "pId": null,
+        "id": "problemData"
+    },
+    {
+        "name": "门诊问题",
+        "level": "2",
+        "pId": "problemData",
+        "id": "outpatientProblem"
+    },
+    {
+        "name": "住院问题",
+        "level": "2",
+        "pId": "problemData",
+        "id": "hospitalProblem"
+    },
+    {
+        "name": "数据配码",
+        "level": "1",
+        "icon":"icon-list",
+        "pId": null,
+        "id": "dataMatching"
+    }
+]

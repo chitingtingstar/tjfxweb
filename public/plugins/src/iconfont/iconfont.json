@@ -1,0 +1,597 @@
+{
+  "id": "1247860",
+  "name": "药事管理系统",
+  "font_family": "font_family",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "14802569",
+      "name": "授权",
+      "font_class": "shouquan",
+      "unicode": "e6a4",
+      "unicode_decimal": 59044
+    },
+    {
+      "icon_id": "14801730",
+      "name": "详情",
+      "font_class": "xiangqing",
+      "unicode": "e6a2",
+      "unicode_decimal": 59042
+    },
+    {
+      "icon_id": "14801731",
+      "name": "填写",
+      "font_class": "tianxie",
+      "unicode": "e6a3",
+      "unicode_decimal": 59043
+    },
+    {
+      "icon_id": "14796500",
+      "name": "右",
+      "font_class": "you1",
+      "unicode": "e6a0",
+      "unicode_decimal": 59040
+    },
+    {
+      "icon_id": "14796501",
+      "name": "左",
+      "font_class": "zuo1",
+      "unicode": "e6a1",
+      "unicode_decimal": 59041
+    },
+    {
+      "icon_id": "14795797",
+      "name": "开",
+      "font_class": "kai",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "14795798",
+      "name": "关",
+      "font_class": "guan",
+      "unicode": "e69f",
+      "unicode_decimal": 59039
+    },
+    {
+      "icon_id": "14795497",
+      "name": "自动配码",
+      "font_class": "zidongpeima",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "14795399",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
+      "icon_id": "14795400",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e69d",
+      "unicode_decimal": 59037
+    },
+    {
+      "icon_id": "14794828",
+      "name": "更多",
+      "font_class": "gengduo1",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
+    },
+    {
+      "icon_id": "14788649",
+      "name": "启用",
+      "font_class": "qiyong1",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "14781856",
+      "name": "住院白蛋白药物使用率统计",
+      "font_class": "zhuyuanbaidanbaiyaowushiyongshuaitongji",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "14781857",
+      "name": "住院抗菌药物使用强度统计",
+      "font_class": "zhuyuankangjunyaowushiyongqiangdutongji",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "14781858",
+      "name": "住院替加环素药物使用强度统计",
+      "font_class": "zhuyuantantijiahuansuyaowushiyongqiangdutongji",
+      "unicode": "e693",
+      "unicode_decimal": 59027
+    },
+    {
+      "icon_id": "14781859",
+      "name": "住院替加环素药物使用率统计",
+      "font_class": "zhuyuantantijiahuansuyaowushiyongshuaitongji",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "14781860",
+      "name": "住院碳青霉烯类药物使用强度统计",
+      "font_class": "zhuyuantanqingmeixileiyaowushiyongqiangdutongji",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "14781861",
+      "name": "住院碳青霉烯类药物使用率统计",
+      "font_class": "zhuyuantanqingmeixileiyaowushiyongshuaitongji",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "14775986",
+      "name": "住院抗菌药物使用率统计",
+      "font_class": "zhuyuankangjunyaowushiyonglvtongji",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "14775987",
+      "name": "住院球蛋白药物使用率统计",
+      "font_class": "zhuyuanqiudanbaiyaowushiyongshuaitongji",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "14773839",
+      "name": "住院PPI(质子泵抑制剂)药物 使用率统计",
+      "font_class": "zhuyuanPPIshiyongshuaitongji",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
+      "icon_id": "14771984",
+      "name": "管理员",
+      "font_class": "guanliyuan",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "14771985",
+      "name": "密码",
+      "font_class": "mima1",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "14771986",
+      "name": "上升",
+      "font_class": "shangsheng",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "14771987",
+      "name": "刷新",
+      "font_class": "shuaxin",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "14771988",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "14771989",
+      "name": "用户名",
+      "font_class": "yonghuming1",
+      "unicode": "e68c",
+      "unicode_decimal": 59020
+    },
+    {
+      "icon_id": "14771990",
+      "name": "下降",
+      "font_class": "xiajiang",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "13409331",
+      "name": "选项卡关闭",
+      "font_class": "guanbi",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "11050568",
+      "name": "问题说明",
+      "font_class": "wentishuoming",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "10943757",
+      "name": "处方点评",
+      "font_class": "top-tab-cfdp",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "10887670",
+      "name": "提示信息",
+      "font_class": "tishixinxi",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "10886781",
+      "name": "右",
+      "font_class": "you",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "10886774",
+      "name": "左",
+      "font_class": "zuo",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "10886122",
+      "name": "注销登录",
+      "font_class": "zhuxiaodenglu",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "10884227",
+      "name": "系统设置",
+      "font_class": "xitongshezhi",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "10884224",
+      "name": "修改密码",
+      "font_class": "xiugaimima",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "10836185",
+      "name": "路径",
+      "font_class": "lujing",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "10836179",
+      "name": "收缩",
+      "font_class": "shousuo",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "10828117",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "10826896",
+      "name": "确定",
+      "font_class": "queding",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "10826826",
+      "name": "关闭",
+      "font_class": "fa-close",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    },
+    {
+      "icon_id": "10738798",
+      "name": "+1",
+      "font_class": "addone",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "10735130",
+      "name": "搜索 查找",
+      "font_class": "sousuochazhao",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "10733535",
+      "name": "回到底部",
+      "font_class": "huidaodibu",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "10698755",
+      "name": "重启",
+      "font_class": "zhongqi",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "10694924",
+      "name": "收藏",
+      "font_class": "shoucang",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "10694876",
+      "name": "已收藏",
+      "font_class": "yishoucang",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "10690338",
+      "name": "增加  创建",
+      "font_class": "zengjiachuangjian",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "10689344",
+      "name": "菜单展开",
+      "font_class": "caidanzhankai",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "10689291",
+      "name": "左翻",
+      "font_class": "zuofan",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "10689285",
+      "name": "右翻",
+      "font_class": "youfan",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "10689280",
+      "name": "主页",
+      "font_class": "zhuye",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "10613787",
+      "name": "启用",
+      "font_class": "qiyong",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "10613308",
+      "name": "不启用",
+      "font_class": "buqiyong",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "10611722",
+      "name": "菜单收起",
+      "font_class": "caidanshouqi",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "10605847",
+      "name": "输入用户名",
+      "font_class": "shuruyonghuming",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "10605843",
+      "name": "输入密码",
+      "font_class": "shurumima",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "10605833",
+      "name": "快速回顶",
+      "font_class": "kuaisuhuiding",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "10605819",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "10591458",
+      "name": "密码",
+      "font_class": "mima",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "10589553",
+      "name": "用户名",
+      "font_class": "yonghuming",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "10104227",
+      "name": "医药法规",
+      "font_class": "yiyaofagui",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "10104223",
+      "name": "医学常用计算公式",
+      "font_class": "yixuechangyongjisuangongshi",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "10104217",
+      "name": "抗菌药物临床应用指导原则",
+      "font_class": "kangjunyaowulinchuangyingyongzhidaoyuanze",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "10104212",
+      "name": "个体化给药",
+      "font_class": "getihuageiyao",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "10096149",
+      "name": "规则统计添加",
+      "font_class": "guizetongjitianjia",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "10054765",
+      "name": "医护提问",
+      "font_class": "yihutiwen",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "10054046",
+      "name": "病人提问",
+      "font_class": "bingrentiwen",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "10053895",
+      "name": "简单药学问题",
+      "font_class": "jiandanyaoxuewenti",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "10050509",
+      "name": "搜索框删除",
+      "font_class": "sousuokuangshanchu",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "10042249",
+      "name": "医疗相关知识",
+      "font_class": "yiliaoxiangguanzhishi",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "10039288",
+      "name": "咨询药品价格",
+      "font_class": "zixunyaopinjiage",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "10038887",
+      "name": "药品供应或价格",
+      "font_class": "yaopingongyinghuojiage",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "10036765",
+      "name": "问路",
+      "font_class": "wenlu",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "10036713",
+      "name": "其他",
+      "font_class": "qita",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "9526227",
+      "name": "处方医嘱点评",
+      "font_class": "top-tab-cfyzdp",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "9526221",
+      "name": "统计分析",
+      "font_class": "top-tab-tjfx",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "9526204",
+      "name": "抗菌药物统计分析",
+      "font_class": "top-tab-adstat",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "9526197",
+      "name": "门诊咨询",
+      "font_class": "top-tab-mzzx",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "9436264",
+      "name": "信息岛",
+      "font_class": "top-tab-xxd",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "9429931",
+      "name": "住院自维护",
+      "font_class": "top-tab-zyzwh",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "9428580",
+      "name": "门急诊自维护",
+      "font_class": "top-tab-mzzwh",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "9420798",
+      "name": "说明书",
+      "font_class": "top-tab-sms",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    }
+  ]
+}

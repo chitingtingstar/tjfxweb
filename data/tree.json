@@ -1,0 +1,44 @@
+[
+    {
+        "name": "系统管理",
+        "level": "0",
+        "childrenNum": "85",
+        "parentDisplayOrder": "-1",
+        "displayOrder": "0",
+        "pId": null,
+        "id": "system",
+        "open":true
+    },
+    {
+        "name": "用户管理",
+        "level": "1",
+        "childrenNum": "19",
+        "displayOrder": "0",
+        "pId": "system",
+        "id": "user"
+    },
+    {
+        "name": "角色管理",
+        "level": "2",
+        "childrenNum": "9",
+        "displayOrder": "2",
+        "pId": "system",
+        "id": "role"
+    },
+    {
+        "name": "目录管理",
+        "level": "0",
+        "childrenNum": "23",
+        "displayOrder": "20",
+        "pId": null,
+        "id": "directory"
+    },
+    {
+        "name": "医疗机构",
+        "level": "1",
+        "childrenNum": "41",
+        "displayOrder": "50",
+        "pId": "directory",
+        "id": "organization"
+    }
+]

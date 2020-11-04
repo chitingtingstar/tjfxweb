@@ -1,0 +1,26 @@
+{
+    "budget2012List": [
+        0,
+        1000,
+        1000,
+        1000,
+        1000,
+        742000
+    ],
+    "delta": [
+        null,
+        0,
+        -75,
+        3.39462058212059,
+        null,
+        0.515659140568103
+    ],
+    "names": [
+        "Securities and Exchange Commission",
+        "Other Commissions and Boards(discretion)",
+        "Office of Chief Economist(discretion)",
+        "Departmental Management(discretion)",
+        "Agriculture",
+        "Military Personnel(discretion)"
+    ]
+}

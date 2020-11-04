@@ -1,0 +1,54 @@
+{
+    "code": 0,
+    "message": "成功",
+    "data":{
+        "total":100,
+         "rows": [
+        {
+            "userId": 1,
+            "userName": "zhangsan",
+            "name": "张三",
+            "roleName": "371202199101022228",
+            "jobTitle": "haha@123.com",
+            "orgName": "13121456665",
+            "deptName":"药剂科",
+            "email":"haha@163.com",
+            "phone":"13121232223" 
+        },
+        {
+            "userId": 2,
+            "userName": "zhangsan",
+            "name": "张三",
+            "roleName": "371202199101022228",
+            "jobTitle": "haha@123.com",
+            "orgName": "13121456665",
+            "deptName":"药剂科",
+            "email":"haha@163.com",
+            "phone":"13121232223" 
+        },
+        {
+            "userId": 3,
+            "userName": "zhangsan",
+            "name": "张三",
+            "roleName": "371202199101022228",
+            "jobTitle": "haha@123.com",
+            "orgName": "13121456665",
+            "deptName":"药剂科",
+            "email":"haha@163.com",
+            "phone":"13121232223" 
+        },
+        {
+            "userId": 4,
+            "userName": "zhangsan",
+            "name": "张三",
+            "roleName": "371202199101022228",
+            "jobTitle": "haha@123.com",
+            "orgName": "13121456665",
+            "deptName":"药剂科",
+            "email":"haha@163.com",
+            "phone":"13121232223" 
+        }
+    ]
+    }
+   
+}

@@ -1,0 +1,187 @@
+{
+    "resultCode": 0,
+    "resultMsg": "成功",
+    "total": 300,
+    "rows": [
+        {
+            "orgId": 1,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 2,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 3,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 3,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 5,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 6,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 7,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 8,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等三级甲等"
+        },
+        {
+            "orgId": 9,
+            "orgName": "正大医院",
+            "orgCode":"123332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"河南",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 10,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山得凤凤东",
+            "institutionalRating":"三级的发射点甲等"
+        },
+        {
+            "orgId": 11,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 12,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 13,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 14,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 15,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 16,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 17,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 18,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 19,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        },
+        {
+            "orgId": 20,
+            "orgName": "省立医院",
+            "orgCode":"122332",
+            "orgAbbreviation":"省立",
+            "orgPinyin":"SL",
+            "administrativeDivision":"山东",
+            "institutionalRating":"三级甲等"
+        }
+    ]
+}

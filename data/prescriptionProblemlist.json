@@ -1,0 +1,37 @@
+{
+    "code": 0,
+    "message": "操作成功",
+    "data": {
+        "total": 4,
+        "problemTotal":1110,     
+        "problemRecipeTotal":221,
+        "recipeTotal":101,
+        "rows": [
+            {
+            "orgCode":111,    
+            "orgName":"省立东院",     
+            "problemCode":111, 
+            "problemName":111,
+            "drugCode":"111",
+            "drugName":"软胶囊",    
+            "date":"2019/01/01",   
+            "recipeNums":111,
+            "problemNums":111,
+            "problemRecipeNums":11,
+            "problemRate":111
+            },{
+            "orgCode":222,
+            "orgName":"山东中医院",
+            "problemCode":222,
+            "problemName":111,
+            "drugCode":111,
+            "drugName":111,
+            "date":111,
+            "recipeNums":111,
+            "problemNums":111, 
+            "problemRecipeNums":10,
+            "problemRate":111 
+            }
+        ]
+    }  
+}

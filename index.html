@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./public/resource.js"></script>
+    <script src="./public/vue-treeselect.min.js"></script>
+    <link rel="stylesheet" href="./public/vue-treeselect.min.css">
+</head>
+
+<body>
+    <div id="framework">
+		<div class="gd-topbar">
+			<div class="gd-topbar-titles">统计分析平台</div>
+		</div>
+        <div class="gd-left-menu">
+            <ul class="gd-left-menu-body"><li data-href="leftmenu.html" class="gd-left-menu-item"><div class="gd-left-menu-content gd-left-menu-text gd-active"><span class="gd-left-menu-name">抗菌药物查询</span></div></li>
+            </ul>
+        </div>
+    </div>
+    <div class="gd-right-content">
+         <div id="mainContent">
+            <div class="tab-wrapper" id="antibioticsQueryWrapper">
+            <div class="gd-tab-horizontal" id="hahaha">
+                <ul class="gd-tab-bar">
+                    <li :class="currentValue == -1?'gd-tab-li gd-tab-li-active':'gd-tab-li'" @click="handleChange0"><span>抗菌药物查询</span></li>
+                    <li v-for="(item,index) in resultList" :class="currentValue == index? 'gd-tab-li gd-tab-li-active':'gd-tab-li'" @click="handleChange($event,index)"><span>{{item.name}}</span><i class="icon-close" @click="closeThisCon($event,index)"></i></li>
+                </ul>
+                <div class="gd-tab-content">
+                    <div class="gd-tab-item">
+                        <div id="validate_demo" class="container-form">
+                            <div class="row">
+                                <label>统计方式：</label>
+                                <label class="gd-radio"><input type="radio" value="dept" name="statistic_type" v-model="conditionVal.statistic_type"><i></i>科室</label>
+                                <!-- <label class="gd-radio"><input type="radio" value="doctor" name="statistic_type" v-model="conditionVal.statistic_type"><i></i>医生</label> -->
+                                <label class="gd-radio"><input type="radio" value="product" name="statistic_type" v-model="conditionVal.statistic_type"><i></i>药品(含厂商信息)排名</label>
+                                <label class="gd-radio"><input type="radio" value="commonName" name="statistic_type" v-model="conditionVal.statistic_type"><i></i>通用名</label>
+                                <label class="gd-radio"><input type="radio" value="pharmacology" name="statistic_type" v-model="conditionVal.statistic_type"><i></i>药理分类排名</label>
+                            </div>
+                            <div class="row">
+                                <label>出院时间：</label>
+                                <gd-datepicker :config="leaveDateConfig_start"></gd-datepicker>&nbsp;至&nbsp;<gd-datepicker :config="leaveDateConfig_end"></gd-datepicker>
+                            </div>
+                            <div class="row">
+                                <label>统计院区：</label>
+                                <label class="gd-checkbox" v-for="item in hospital_district_list"><input type="checkbox" :value="item.branch_id" v-model="
+                                conditionVal.hospital_district_list_checked" ><i></i>{{item.branch_name}}</label>
+                            </div>
+                            <div class="row">
+                                <label>统计科室：</label>
+                                <div class="select-input-box width-300">{{conditionVal.selectDeptNameVal}}<span class="select-span" @click="deptSelectFun">选择</span></div>      
+                            </div>
+                            <div class="row">
+                                <label>药品类型：</label>
+                                <label class="gd-checkbox" v-for="item in drugCategoryList"><input type="checkbox" :value="item.id" v-model="
+                                conditionVal.drug_category_list_checked" :disabled="item.isDisabled"><i></i>{{item.name}}</label>
+                            </div>
+                            <div class="row">
+                                <label>药品通用名称：</label>
+                                <div class="drugName-select-box width-300">
+                                    <treeselect v-model="drugCommonNameValue" :multiple="true" :async="true" :load-options="loadCommonNameOptions"/> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label>药品名称：</label>
+                                <div class="drugName-select-box width-300">
+                                    <treeselect v-model="drugNameValue" :multiple="true" :async="true" :load-options="loadNameOptions"/> 
+                                </div>                            
+                            </div>
+                            <div class="row">
+                                <label>药品剂型：</label>
+                                <label class="gd-checkbox" v-for="item in drugDosageFormList"><input type="checkbox" :value="item.id" v-model="conditionVal.drug_dosage_form_list_checked"><i></i>{{item.name}}</label>
+                            </div>
+                            <div class="row">
+                                <label>抗菌药物类型：</label>
+                                <label class="gd-checkbox" v-for="item in antiDrugCategoryList"><input type="checkbox" :value="item.id" v-model="conditionVal.anti_drug_category_list_checked"><i></i>{{item.name}}</label>
+                            </div>
+                            <div class="row">
+                                <label>抗菌药物级别：</label>
+                                <label class="gd-checkbox" v-for="item in antiDrugLevelList"><input type="checkbox" :value="item.id" v-model="conditionVal.anti_drug_level_list_checked"><i></i>{{item.name}}</label>     
+                            </div>
+                            <div class="row">
+                                <label>外用：</label>
+                                <label class="gd-checkbox"><input type="checkbox" v-model="conditionVal.exculde_outer_drug"><i></i>排除</label>
+                            </div>
+                            <div class="row">
+                                <label>出院带药：</label>
+                                <label class="gd-checkbox"><input type="checkbox" v-model="conditionVal.exclude_discharge_drug"><i></i>排除</label>
+                            </div>
+                            <div class="row">
+                                <label>病人年龄：</label>
+                                <label class="gd-radio">
+                                    <input type="radio" value="0" name="age" :checked="conditionVal.patient_age == 0" v-model="conditionVal.patient_age"><i></i>全部
+                                </label>
+                                <label class="gd-radio">
+                                    <input type="radio" value="1" name="age" v-model="conditionVal.patient_age"><i></i>成人
+                                </label>
+                                <label class="gd-radio">
+                                    <input type="radio" value="2" name="age" v-model="conditionVal.patient_age"><i></i>非成人
+                                </label>
+                            </div>
+                            <div class="gd-clearfix text-center margin-top20">
+                                <button id="btn_submit" type="button" class="gd-btn gd-margin-top-lg width-130" @click="searchAllFun">查 询</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gd-tab-item" v-for="(item,index) in resultTitle" v-show="index == currentValue">
+                        <div class="tab-item-title">
+                            <h4>{{item.subName}}</h4>
+    					   <button type="button" class="gd-btn export-box" @click="dataExport(item.param,item.name)">导 出</button>
+                           <span class="tab-item-title-line" v-if="item.resultPage=='dept'"></span>
+                           <span class="tab-item-title-line-two" v-if="item.resultPage=='product'"></span>
+                           <span class="tab-item-title-line-three" v-if="item.resultPage=='commonName'"></span>
+                           <span class="tab-item-title-line-three" v-if="item.resultPage=='pharmacology'"></span>
+                        </div>
+                        <ul class="section-one-ul">
+                            <li v-for="list in item.totalPart" :class="item.resultPage">
+                                <div><span class="section-one-num">{{list.value}}</span></div>
+                                <div class="section-one-title">{{list.name}}</div></li>
+                            <li>
+                        </ul>
+                        <div class="table-box">
+                                <gd-table :config="tableConfig1" v-if="item.resultPage=='dept'" :class="item.resultPage"></gd-table>
+                                <gd-table :config="tableConfig2" v-if="item.resultPage=='product'" :class="item.resultPage" ></gd-table>
+                                <gd-table :config="tableConfig3" v-if="item.resultPage=='commonName'" :class="item.resultPage"></gd-table>
+                                <gd-table :config="tableConfig4" v-if="item.resultPage=='pharmacology'" :class="item.resultPage"></gd-table>
+                        </div>
+                        <div class="tab-item-title"><h4>统计范围</h4><span class="tab-item-title-line-other"></span></div>
+                            <div class="tj-range-box">
+                                <div>出院时间：{{item.conditionResultVal.condition_discharge_time}} </div>
+                                <div>统计院区：{{item.conditionResultVal.condition_hospital_district}}</div>
+                                <div>统计科室：{{item.conditionResultVal.condition_dept_code}}</div>
+                                <div>药品类型：{{item.conditionResultVal.condition_drug_category}}</div>
+                                <div>药品通用名：{{item.conditionResultVal.condition_drug_common_name}}</div>
+                                <div>药品名称：{{item.conditionResultVal.condition_drug_product_name}}</div>
+                                <div>药品剂型：{{item.conditionResultVal.condition_drug_dosage_form}}</div>
+                                <div>抗菌药物类型：{{item.conditionResultVal.condition_anti_drug_category}}</div>
+                                <div>抗菌药物级别：{{item.conditionResultVal.condition_anti_drug_level}}</div>
+                                <div>外用药：{{item.conditionResultVal.condition_exculde_outer_drug}}</div>
+                                <div>出院带药：{{item.conditionResultVal.condition_exclude_discharge_drug}}</div>
+                                <div>病人年龄：{{item.conditionResultVal.condition_patient_age}}</div>
+                            </div>
+                            <div class="tab-item-title"><h4>字段说明</h4><span class="tab-item-title-line-three"></span></div>
+                            <div class="tj-range-box">
+                                <div v-for="list in item.fieldDescription">{{list}}</div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+
+<!-- 科室选择 -->
+<script type="text/html" id="selectDeptBox">
+    <div id="deptSelect" class="list-select">
+        <div class="list-body" id="list-body">
+            <div class="left-box">
+                <div class="dept-search-box"><input type="text" v-model="dept_name" class="gd-input"/><i class="icon-search" @click="searchDeptDic"></i></div>
+                <ul class="item-box left-box-box dept-search-result">
+                    <li class="item" v-for="item in deptObj" :data-id="item.dept_code">{{item.dept_name}}</li>
+                </ul>
+            </div>
+            <div class="center-box">
+                <button class="add-one" title="添加选中项">></button>
+                <button class="add-all" title="添加全部">>></button>
+                <button class="remove-one" title="移除选中项"><</button>
+                <button class="remove-all" title="移除全部"><<</button>
+            </div>
+            <ul class="item-box right-box">
+                <li class="item" v-for="item in deptObjOld" :data-id="item.dept_code">{{item.dept_name}}</li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!-- 药理分类 -->
+<script type="text/html" id="selectYaolifenleiBox">
+    <div id="selectYlflCon" class="list-select">
+        <div class="list-body" id="list-body-ylfl">
+            <div class="item-box left-box dept-search-result">
+                <!-- ztree -->
+                <gd-tree :config='treeConfig'></gd-tree>
+            </div>
+            <div class="center-box">
+                <button class="add-one" title="添加选中项" disabled>></button>
+            </div>
+            <ul class="item-box right-box">
+                <li class="item" v-for="item in ylflListCon" :data-id="item.id">{{item.name}}</li>
+            </ul>
+        </div>
+    </div>
+</script>
+
+<!-- 药品名称 -->
+<script type="text/html" id="ypmcBox">
+    <div class="ypmcBox-list" id="ypmcBoxList">
+        <div class="dept-search-box"><input type="text" class="gd-input"/><i class="icon-search"></i></div>
+        <ul class="ypmcBox-list-ul">
+            <li v-for="item in drugNameAll"><label class="gd-checkbox"><input type="checkbox" @change="isSelectName()"><i></i>{{item.name}}</label></li>
+        </ul>
+        <div class="ypmcBox-button"><button class="active">全选</button><button>全部取消</button></div>
+    </div>
+</script>
+
+<!-- 药品通用名称 -->
+<script type="text/html" id="ypmcCommonBox">
+    <div class="ypmcBox-list" id="ypmcCommonBoxList">
+        <div class="dept-search-box"><input type="text" class="gd-input"/><i class="icon-search"></i></div>
+        <ul class="ypmcBox-list-ul">
+            <li v-for="item in commonDrugNameAll"><label class="gd-checkbox"><input type="checkbox" @change="isSelectName()"><i></i>{{item.name}}</label></li>
+        </ul>
+        <div class="ypmcBox-button"><button class="active">全选</button><button>全部取消</button></div>
+    </div>
+</script>
+
+<script type="text/javascript" src="./public/jquery-ui.min.js"></script>
+<script type="text/javascript" src="./public/resultPage.js"></script>
+<script type="text/javascript" src="./public/common.js"></script>
+
+<script>
+    Vue.component('treeselect', VueTreeselect.Treeselect)
+    var simulateAsyncOperation = fn => { setTimeout(fn, 2000)}
+    var indexVue = new Vue({
+        el: '#antibioticsQueryWrapper',
+        data:{
+            tabConfig:{
+                currentTab:0,
+                tabCloseIsShow:true
+            },
+            customCategoryList:[],
+            resultTitle:[],
+            resultList:[],
+            resultPage:'',
+            totalPart:[],
+            drugDosageFormList:[
+                {
+                    "id":"1",
+                    "name":"口服"
+                },{
+                    "id":"2",
+                    "name":"注射"
+                },
+                {
+                    "id":"3",
+                    "name":"其它"
+                }        
+            ],
+            drugCategoryList:[
+                {
+                    "id":"A",
+                    "name":"西药"
+                },
+                {
+                    "id":"B",
+                    "name":"中草药",
+                    "isDisabled":true
+                },
+                {
+                    "id":"C",
+                    "name":"中成药",
+                    "isDisabled":true
+                }
+            ],
+            antiDrugCategoryList:[
+                {
+                    "id":"A",
+                    "name":"抗细菌药"
+                },
+                {
+                    "id":"B",
+                    "name":"抗真菌药"
+                },{
+                    "id":"C",
+                    "name":"抗结核药"
+                },
+                {
+                    "id":"D",
+                    "name":"抗麻风药"
+                }
+            ],
+            antiDrugLevelList:[
+                {
+                    "id":"1",
+                    "name":"特殊使用"
+                },{
+                    "id":"2",
+                    "name":"限制使用"
+                },{
+                    "id":"3",
+                    "name":"非限制使用"
+                }
+            ],
+            hospital_district_list:[],
+            conditionVal:{
+                statistic_type:'dept',//统计类型
+                selectDeptNameVal:'',//科室名拼接
+                selectDeptIdArr:[],//科室列表id
+                selectDeptNameArr:[],//科室名数组
+                ylflNameVal:'',//药理分类名
+                ylflIdArr:[],//药理分类id数组
+                ylflNameArr:[],//药理分类名数组
+                discharge_time_start:dateFormat(),//出院时间开始时间
+                discharge_time_end:dateFormat(),
+                custom_category_list_checked:[],//自定义药品分类
+                custom_category_list_checked_name:'',//自定义药品分类名称拼接
+                drug_dosage_form_list_checked:[],//药品剂型
+                drug_dosage_form_list_checked_name:'',//药品剂型名称拼接
+                drug_category_list_checked:[],//药品类型
+                drug_category_list_checked_name:'',//药品类型名称拼接
+                anti_drug_category_list_checked:[],// 抗菌药物类型
+                anti_drug_category_list_checked_name:'',//抗菌药物类型名称拼接
+                anti_drug_level_list_checked:[],// 抗菌药物等级列表
+                anti_drug_level_list_checked_name:'',//抗菌药物登记列表名称拼接
+                hospital_district_list_checked:[],//院区
+                hospital_district_list_checked_name:'',
+                drug_common_name:[],//药品通用名称
+                drug_product_name:[],//药品名称
+                exclude_discharge_drug:"",//排除出院带药
+                exculde_outer_drug: "",//排除外用药
+                // exculde_tuberculosis_drug:"",//排除结核用药
+                patient_age:'0',
+            },
+            drugNameSelectShow:false,
+            commonDrugNameSelectShow:false,
+            leaveDateConfig_start: {
+                value: dateFormat(),//设置初始时间,可选
+                maxDate: '',//最大日期
+                minDate: '2010-05-03',//最小日期
+                change: function (time) {
+                    indexVue.conditionVal.discharge_time_start = time;
+                }
+            },
+            leaveDateConfig_end: {
+                value: dateFormat(),//设置初始时间,可选
+                maxDate: '',//最大日期
+                minDate: '2010-05-03',//最小日期
+                change: function (time) {
+                    indexVue.conditionVal.discharge_time_end = time
+                } 
+            },
+            currentValue:-1,
+            drugNameValue:[],
+            drugCommonNameValue:[],
+            drugOptions:[],
+            drugCommonOptions:[],
+            selectDeptObj:[]
+        },
+        methods: {
+            loadCommonNameOptions({action, searchQuery, callback }) {
+                simulateAsyncOperation(() => {
+                    var options = [];
+                    // 药品通用名
+                    $.ajax({
+                        type: 'GET',
+                        url: baseUrl + '/dic/getDrugCommonNameDicList?drug_name='+searchQuery,
+                        success: function(result){
+                            result.data.rows.forEach(function (item) {
+                               options.push({
+                                    "id":item.drug_common_name,
+                                    "label":item.drug_common_name
+                                });
+                            });
+                            callback(null, options)
+                        }
+                    });
+                })
+            },
+            loadNameOptions({action, searchQuery, callback }) {
+                simulateAsyncOperation(() => {
+                    var options = [];
+                    $.ajax({
+                        type: 'GET',
+                        url: baseUrl + '/dic/getDrugProductDicList?drug_name='+searchQuery,
+                        success: function(result){
+                            result.data.rows.forEach(function (item) {
+                               options.push({
+                                    "id":item.drug_code,
+                                    "label":item.drug_name
+                                });
+                            });
+                            callback(null, options)
+                        }
+                    });
+                })
+            },
+            closeThisCon:function(event,index){
+                indexVue.resultList.splice(index,1);
+                indexVue.resultTitle.splice(index,1)
+            },
+            handleChange:function(dom,index) {
+                indexVue.currentValue = index;
+            },
+            handleChange0:function(){
+                indexVue.currentValue = -1;
+            },
+            searchAllFun:function(data){
+                var data =  {
+                    "discharge_time_start": indexVue.conditionVal.discharge_time_start,//出院开始时间
+                    "discharge_time_end": indexVue.conditionVal.discharge_time_end,//出院结束时间
+                    "hospital_district_list": indexVue.conditionVal.hospital_district_list_checked,//院区列表
+                    "drug_category_list": indexVue.conditionVal.drug_category_list_checked,// 药品类型
+                    "drug_common_name_list": indexVue.drugCommonNameValue,// 药品通用名
+                    "drug_code_list": indexVue.drugNameValue,// 药品名称 (商品名)
+                    "drug_dosage_form_list": indexVue.conditionVal.drug_dosage_form_list_checked,// 药品剂型列表
+                    "anti_drug_category_list": indexVue.conditionVal.anti_drug_category_list_checked,// 抗菌药物类型 列表
+                    "anti_drug_level_list": indexVue.conditionVal.anti_drug_level_list_checked,// 抗菌药物等级列表
+                    "exclude_discharge_drug": indexVue.conditionVal.exclude_discharge_drug ? '1':'0',// 排除出院带药
+                    "statistic_type": indexVue.conditionVal.statistic_type, //统计类型
+                    "dept_code_list":indexVue.conditionVal.selectDeptIdArr,// 科室列表
+                    // "custom_category_list": indexVue.conditionVal.custom_category_list_checked,// 自定义药品分类列表
+                    // "pharmacology_list": indexVue.conditionVal.ylflIdArr,// 药理分类列表
+                    "exculde_outer_drug":indexVue.conditionVal.exculde_outer_drug ? '1':'0',//排除外用药
+                    // "exculde_tuberculosis_drug": indexVue.conditionVal.exculde_tuberculosis_drug ? '1':'0',// 排除抗结核药品
+                    "is_adult":indexVue.conditionVal.patient_age,// 是否成人
+                }
+
+                var resultTitle = indexVue.conditionVal.statistic_type;
+                
+                switch(resultTitle){
+                    case "dept":
+                        indexVue.tjfxDept(data);
+                        break;
+                    case "product":
+                        indexVue.tjfxDrugRanking(data);
+                        break;
+                    case "commonName":
+                        indexVue.tjfxCommonName(data);
+                        break;
+                    case "pharmacology":
+                       indexVue.tjfxClassRanking(data);
+                        break;
+                }
+            },
+            tjfxDept:function(data){
+                var query_guid = guid();
+                data.query_guid = query_guid;
+                var sendData =data;
+                var obj ={
+                    "name":"科室排名",
+                    "subName":"各科室合计",
+                    "totalPart":[],
+                    "param":JSON.stringify(sendData),
+                    "conditionResultVal":{},
+                    "resultPage":'dept',
+                    "fieldDescription":[
+                        '出院时间:统计该段时间内出院患者整个住院期间使用的药品信息',
+                        '药品总金额: 科室使用药品的总金额只与查询条件科室,药物类型有关',
+                        '抗菌药物金额: 科室使用抗菌药物的金额',
+                        '累计Ddd数:抗菌药物累计使用量,以DDDS计',
+                        '同期收治患者人天数=统计出院时间段内所有出院患者住院天数之和(分科室统计)',
+                        '使用强度=累计Ddd数/同期收治患者人天数*100'
+                    ]
+                }
+                indexVue.resultList.push({"name":"科室"});
+                indexVue.resultTitle.push(obj);
+                var tabIndex = indexVue.resultTitle.length;
+                indexVue.currentValue = tabIndex-1;
+                var key = indexVue.currentValue;
+
+                
+                // 统计范围
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + '/inpAntiDrugDeptRanking/getQueryCondition',
+                    data: {"param":JSON.stringify(sendData)},
+                    beforeSend: function(result){},
+                    success: function(result){
+                        if(result.code != 0){
+                            gd.showError('统计范围，加载失败');
+                            gd.closeLoading();
+                        }else{
+                            indexVue.resultTitle[key].conditionResultVal = result.data.rows[0]
+                        }
+                    },
+                    error:function(){
+                        gd.showError('统计范围，加载失败');
+                        gd.closeLoading()
+                    }                  
+                })
+                // 合计
+                $.ajax({
+                    type: 'GET',
+                    url: baseUrl + '/inpAntiDrugDeptRanking/queryDeptRankingTotal',
+                    data: {"param":JSON.stringify(sendData)},
+                    success: function(result){
+                        if(result.code != 0){
+                            gd.showError('合计数据，加载失败');
+                            gd.closeLoading();
+                        }else{
+                            var resultData = result.data.rows[0]
+                            indexVue.resultTitle[key].totalPart = [{
+                                    "name":"药品总金额",
+                                    "value":resultData.total_drug_cost
+                                },{
+                                    "name":"抗菌药物金额",
+                                    "value":resultData.total_anti_drug_cost
+                                },{
+                                    "name":"抗菌药物金额占比",
+                                    "value":resultData.anti_drug_cost_ratio
+                                },{   
+                                    "name":"抗菌药物累计Ddd数",
+                                    "value":resultData.anti_drug_ddds
+                                },{   
+                                    "name":"使用强度",
+                                    "value":resultData.anti_drug_intensity
+                                },{   
+                                "name":"同期收治患者人次数",
+                                "value":resultData.patient_person_times
+                                },{   
+                                "name":"同期收治患者人天数",
+                                "value":resultData.patient_person_days
+                                },{
+                                "name":"药理分类数",
+                                "value":resultData.pharmacology_kind_num
+                                },{
+                                "name":"药品通用名数",
+                                "value":resultData.common_name_kind_num
+                                },{
+                                "name":"药品品规数",
+                                "value":resultData.drug_product_kind_num
+                                }];
+                        }
+                    },
+                    error:function(){
+                        gd.showError('合计数据，加载失败'); 
+                        gd.closeLoading()
+                    }
+                });
+                
+                indexVue.tableConfig1 = {
+                    id: 'resultTable1',
+                    length: 20, //每页多少条,默认50，可选
+                    curPage: 1, //当前页码，默认1，可选
+                    lengthMenu: [10, 30, 50, 100], 
+                    enablePaging: false,//启用分页,默认true，可选
+                    orderType: 'desc',//排序规则，desc或asc,默认desc
+                    columnResize:true,
+                    loading: true,
+                    ajax: {
+                        url: baseUrl+'/inpAntiDrugDeptRanking/queryDeptRanking',
+                        dataSrc: function (data) {
+                            gd.closeLoading();
+                            data.rows = data.rows.map(function (obj) {
+                                return [
+                                   obj.hospital_district_name,
+                                   obj.dept_name,
+                                   obj.dept_code,
+                                   obj.drug_cost,
+                                   obj.anti_drug_cost,
+                                   obj.anti_drug_cost_ratio,
+                                   obj.anti_drug_ddds,
+                                   obj.anti_drug_intensity,
+                                   obj.patient_person_times,
+                                   obj.patient_person_days,
+                                   obj.pharmacology_kind_num,
+                                   obj.common_name_kind_num,
+                                   obj.drug_product_kind_num
+                                ]
+                            });
+                            return data;
+                        },
+                        //请求参数
+                        data: {
+                            param: JSON.stringify(sendData)
+                        }
+                    },
+                    columns: [
+                        {
+                            name: 'hospital_district_name',
+                            width:'5%',
+                            head: '院区',
+                        },{
+                            name: 'dept_name',
+                            width:'7%',
+                            head: '科室名称',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'dept_code',
+                            width:'5%',
+                            head: '科室编码',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'drug_cost',
+                            head: '药品总金额',
+                            width:'7%',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'anti_drug_cost',
+                            width:'8%',
+                            head: '抗菌药物金额',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'anti_drug_cost_ratio',
+                            width:'8%',
+                            head: '抗菌药物金额占比',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'anti_drug_ddds',
+                            width:'9%',
+                            head: '抗菌药物累计Ddd数',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'anti_drug_intensity',
+                            width:'8%',
+                            head: '使用强度',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'patient_person_times',
+                            width:'9%',
+                            head: '同期收治患者人次数',
+                            align: 'center',
+                        },{
+                            name: 'patientpersondays',
+                            width:'8%',
+                            head: '同期收治患者人天数',
+                            align: 'center',
+                        },
+                        {
+                            name: "pharmacology_kind_num",
+                            width:'7%',
+                            head: '药理分类数',
+                        },{
+                            name: 'common_name_kind_num',
+                            width:'8%',
+                            head: '药品通用名数',
+                            align: 'center',
+                        },{
+                            name: 'drug_product_kind_num',
+                            width:'6%',
+                            head: '药品品规数',
+                            align: 'center',
+                        } 
+                    ]
+                }
+            },
+            tjfxDrugRanking:function(data){
+                var query_guid = guid();
+                data.query_guid = query_guid;
+                var sendData = data;
+                var totalPart = [];
+                var obj = {
+                    "name":"药品排名（品名）",
+                    "subName":"药品合计",
+                    "totalPart":[],
+                    "param":JSON.stringify(sendData),
+                    "conditionResultVal":{},
+                    "resultPage":'product',
+                    "fieldDescription":[
+                        '出院时间:统计该段时间内出院患者整个住院期间使用的药品信息',    
+                        '金额: 抗菌药物使用总金额',
+                        '累计Ddd数: 抗菌药物累计使用量,以DDDS计',         
+                        '同期收治患者人天数=统计出院时间段内所有出院患者住院天数之和',           
+                        '使用强度=累计Ddd数/同期收治患者人天数*100'
+                    ]
+                }
+                indexVue.resultList.push({"name":"药品排名（品名）"});
+                indexVue.resultTitle.push(obj);
+                var tabIndex = indexVue.resultTitle.length;
+                indexVue.currentValue = tabIndex-1;
+                var key = indexVue.currentValue;
+                gd.showLoading('加载中，请稍后...')
+
+                // 统计范围
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + '/inpAntiDrugKindRanking/getQueryCondition',
+                    data: {"param":JSON.stringify(sendData)},
+                    success: function(result){
+                        if(result.code !=0){
+                            gd.showError('统计范围，加载失败')
+                            gd.closeLoading();  
+                        }else{
+                            indexVue.resultTitle[key].conditionResultVal = result.data.rows[0]
+                        }
+                    },
+                    error:function(){
+                        gd.showError('统计范围，加载失败');
+                        gd.closeLoading()
+                    }                
+                })
+
+                // 合计
+                $.ajax({
+                  type: 'GET',
+                  url: baseUrl + '/inpAntiDrugKindRanking/getDrugProductRankingTotal',
+                  data: {"param":JSON.stringify(sendData)},
+                  async:false,
+                  success: function(result){
+                    if(result.code !=0){
+                        gd.showError('合计数据，加载失败');
+                        gd.closeLoading();
+                    }else{
+                        var resultData = result.data.rows[0];
+                        indexVue.resultTitle[key].totalPart = [{
+                            "name":"药理分类数",
+                            "value":resultData.pharmacology_kind_num
+                        },{
+                            "name":"品规数",
+                            "value":resultData.product_kind_num
+                        },{
+                            "name":"通用名数",
+                            "value":resultData.common_name_kind_num
+                        },{
+                            "name":"抗菌药费用",
+                            "value":resultData.total_anti_drug_cost
+                        },{
+                            "name":"抗菌药数量",
+                            "value":resultData.anti_drug_amount
+                        },{   
+                            "name":"抗菌药累计DDD数",
+                            "value":resultData.anti_drug_ddds
+                        },{   
+                            "name":"同期患者人天数",
+                            "value":resultData.patient_stays
+                        },{   
+                            "name":"抗菌药物强度",
+                            "value":resultData.anti_drug_intensity
+                        }];
+                    }
+                  },
+                  error:function(){
+                    gd.showError('合计数据，加载失败');
+                    gd.closeLoading();
+                  }
+                });
+
+                indexVue.tableConfig2 = {
+                    id: 'resultTable2',
+                    length: 20, //每页多少条,默认50，可选
+                    curPage: 1, //当前页码，默认1，可选
+                    lengthMenu: [10, 30, 50, 100], 
+                    enablePaging: false,//启用分页,默认true，可选
+                    orderType: 'desc',//排序规则，desc或asc,默认desc
+                    columnResize:true,
+                    loading: true,
+                    ajax: {
+                        url: baseUrl+'/inpAntiDrugKindRanking/getDrugProductRanking',
+                        dataSrc: function (data) {
+                            gd.closeLoading();
+                            data.rows = data.rows.map(function (obj) {
+                                return [
+                                    obj.item_name,
+                                    obj.item_code,
+                                    obj.anti_drug_amount,
+                                    obj.units_name,
+                                    obj.anti_drug_cost,
+                                    obj.anti_drug_ddds,
+                                    obj.patient_stays,
+                                    obj.anti_drug_intensity,
+                                    obj.common_name,
+                                    obj.drug_form,
+                                    obj.item_spec,
+                                    obj.firm_name 
+                                ]
+                            });
+                            return data;
+                        },
+                        //请求参数
+                        data: {
+                            param:JSON.stringify(sendData)
+                        }
+                    },
+                    columns: [
+                        {
+                            name: 'item_name',
+                            width:'9%',
+                            head: '药品名称',
+                            align: 'center',
+                        },
+                        {
+                            name: 'item_code',
+                            width:'7%',
+                            head: '药品编码',
+                            align: 'center',
+                        },
+                        {
+                            name: 'anti_drug_amount',
+                            width:'9%',
+                            head: '数量',
+                            align: 'center'
+                        },{
+                            name: 'units_name',
+                            width:'8%',
+                            head: '计价单位',
+                            align: 'center',
+                        },
+                        {
+                            name: 'anti_drug_cost',
+                            width:'8%',
+                            head: '金额',
+                            align: 'center',
+                        },{
+                            name: 'anti_drug_ddds',
+                            width:'10%',
+                            head: '累计Ddd数',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'patient_stays',
+                            width:'10%',
+                            head: '同期收治患者人天数',
+                            align: 'center'
+                        },{
+                            name: 'anti_drug_intensity',
+                            width:'9%',
+                            head: '使用强度',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'common_name',
+                            width:'8%',
+                            head: '通用名',
+                            align: 'center',
+                        },
+                        {
+                            name: 'drug_form',
+                            width:'5%',
+                            head: '剂型',
+                            align: 'center',
+                        },
+                        {
+                            name: 'item_spec',
+                            width:'8%',
+                            head: '规格',
+                            align: 'center',
+                        },{
+                            name: 'firm_name',
+                            width:'9%',
+                            head: '厂家',
+                            align: 'center',
+                        }
+                    ]
+                }
+            },
+            tjfxCommonName:function(data){
+                var query_guid = guid();
+                data.query_guid = query_guid;
+                var sendData = data;
+                var obj = {
+                    "name":"药品排名（通用名）",
+                    "subName":"药品（通用名）合计",
+                    "totalPart":[],
+                    "param":JSON.stringify(sendData),
+                    "conditionResultVal":{},
+                    "resultPage":'commonName',
+                    "fieldDescription":[
+                       '出院时间:统计该段时间内出院患者整个住院期间使用的药品信息',            
+                        '抗菌药物金额: 科室使用抗菌药物的金额',   
+                        '累计Ddd数:抗菌药物累计使用量,以DDDS计',         
+                        '同期收治患者人天数=统计出院时间段内所有出院患者住院天数之和(分科室统计)',             
+                        '使用强度=累计Ddd数/同期收治患者人天数*100'
+                    ]
+                }
+
+                indexVue.resultList.push({"name":"药品排名（通用名）"});
+                indexVue.resultTitle.push(obj);
+               
+                var tabIndex = indexVue.resultTitle.length;
+                indexVue.currentValue = tabIndex-1;
+                var key = indexVue.currentValue;
+                gd.showLoading('加载中，请稍后...');
+
+                // 统计范围
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + '/inpAntiDrugKindRanking/getQueryCondition',
+                    data: {"param":JSON.stringify(sendData)},
+                    success: function(result){
+                        if(result.code != 0){
+                            gd.showError('统计范围，加载失败');
+                            gd.closeLoading();
+                        }else{
+                            indexVue.resultTitle[key].conditionResultVal = result.data.rows[0]
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        gd.showError('统计范围，加载失败');
+                        gd.closeLoading();
+                    }                   
+                })
+
+                // 合计
+                $.ajax({
+                  type: 'GET',
+                  url: baseUrl + '/inpAntiDrugKindRanking/getDrugCommonNameRankingTotal',
+                  data: {"param":JSON.stringify(sendData)},
+                  async:false,
+                  success: function(result){
+                    if(result.code != 0){
+                        gd.showError('合计数据，加载失败');
+                        gd.closeLoading();
+                    }else{
+                        var resultData = result.data.rows[0];
+                        indexVue.resultTitle[key].totalPart = [{
+                                "name":"药理分类数",
+                                "value":resultData.pharmacology_kind_num
+                            },{
+                                "name":"品规数",
+                                "value":resultData.product_kind_num
+                            },{
+                                "name":"通用名数",
+                                "value":resultData.common_name_kind_num
+                            },{
+                                "name":"抗菌药费用",
+                                "value":resultData.total_anti_drug_cost
+                            },{   
+                                "name":"抗菌药累计DDD数",
+                                "value":resultData.anti_drug_ddds
+                            },{   
+                                "name":"同期患者人天数",
+                                "value":resultData.patient_stays
+                            },{   
+                                "name":"抗菌药物强度",
+                                "value":resultData.anti_drug_intensity
+                            }
+                        ];
+                    }
+                  },
+                  error:function(){
+                        gd.showError('合计数据，加载失败');
+                        gd.closeLoading();
+                  }
+                });
+                
+                indexVue.tableConfig3 = {
+                    id: 'resultTable3',
+                    length: 20, //每页多少条,默认50，可选
+                    curPage: 1, //当前页码，默认1，可选
+                    lengthMenu: [10, 30, 50, 100], 
+                    enablePaging: false,//启用分页,默认true，可选
+                    orderType: 'desc',//排序规则，desc或asc,默认desc
+                    columnResize:true,
+                    loading: true,
+                    ajax: {
+                        url: baseUrl+'/inpAntiDrugKindRanking/getDrugCommonNameRanking',
+                        dataSrc: function (data) {
+                            gd.closeLoading();
+                            data.rows = data.rows.map(function (obj) {
+                                return [
+                                   obj.common_name,
+                                   obj.anti_drug_cost,
+                                   obj.anti_drug_ddds,
+                                   obj.patient_stays,
+                                   obj.anti_drug_intensity,
+                                   obj.product_kind_num  
+                                ]
+                            });
+                            return data;
+                        },
+                        //请求参数
+                        data: {
+                           param:JSON.stringify(sendData)
+                        }
+                    },
+                    columns: [
+                        {
+                            name: 'common_name',
+                            width:'20%',
+                            head: '通用名',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'anti_drug_cost',
+                            width:'15%',
+                            head: '金额',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'anti_drug_ddds',
+                            width:'15%',
+                            head: '累计Ddd数',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'patient_stays',
+                            width:'20%',
+                            head: '同期收治患者人天数',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'anti_drug_intensity',
+                            width:'20%',
+                            head: '抗菌药物强度',
+                            orderable: true,
+                            align: 'center'
+                        },{
+                            name: 'product_kind_num',
+                            width:'10%',
+                            head: '品规数',
+                            orderable: true,
+                            align: 'center'
+                        }
+                    ]
+                }
+            },
+            tjfxClassRanking:function(data){
+                var query_guid = guid();
+                data.query_guid = query_guid;
+                var sendData = data;
+                var totalPart = [];
+                var data = {
+                    "name":"药理排名（药理分类）",
+                    "subName":"药品（药理分类）合计",
+                    "totalPart":totalPart,
+                    "param":JSON.stringify(sendData),
+                    "conditionResultVal":{},
+                    "resultPage":'pharmacology',
+                    "fieldDescription":[
+                        '出院时间:统计该段时间内出院患者整个住院期间使用的药品信息',            
+                        '抗菌药物金额: 科室使用抗菌药物的金额',             
+                        '累计Ddd数:抗菌药物累计使用量,以DDDS计',          
+                        '同期收治患者人天数=统计出院时间段内所有出院患者住院天数之和(分科室统计)',             
+                        '使用强度=累计Ddd数/同期收治患者人天数*100' 
+                    ]
+                }
+
+                indexVue.resultList.push({"name":"药理排名(药理分类)"});
+                indexVue.resultTitle.push(data);
+                var tabIndex = indexVue.resultTitle.length;
+                indexVue.currentValue = tabIndex-1;
+                var key = indexVue.currentValue;
+                gd.showLoading('加载中，请稍后...');
+
+                // 统计范围
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + '/inpAntiDrugKindRanking/getQueryCondition',
+                    data: {"param":JSON.stringify(sendData)},
+                    success: function(result){
+                        if(result.code != 0){
+                            gd.showError('统计范围，加载失败');
+                            gd.closeLoading()
+                        }else{
+                            indexVue.resultTitle[key].conditionResultVal = result.data.rows[0]
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        gd.showError('统计范围，加载失败');
+                        gd.closeLoading()
+                    }                   
+                })
+
+                // 合计
+                $.ajax({
+                  type: 'GET',
+                  url: baseUrl + '/inpAntiDrugKindRanking/getDrugPharmacologyRankingTotal',
+                  data: {"param":JSON.stringify(sendData)},
+                  success: function(result){
+                    if (result.code !=0) {
+                        gd.showError('合计数据，加载失败');
+                        gd.closeLoading();
+                    }else{
+                        var resultData = result.data.rows[0];
+                        indexVue.resultTitle[key].totalPart = [
+                            {
+                                "name":"药理分类数",
+                                "value":resultData.pharmacology_kind_num
+                            },{
+                                "name":"品规数",
+                                "value":resultData.product_kind_num
+                            },{
+                                "name":"通用名数",
+                                "value":resultData.common_name_kind_num
+                            },{
+                                "name":"抗菌药费用",
+                                "value":resultData.total_anti_drug_cost
+                            },{
+                                "name":"抗菌药数量",
+                                "value":resultData.anti_drug_amount
+                            },{   
+                                "name":"抗菌药累计DDD数",
+                                "value":resultData.anti_drug_ddds
+                            },{   
+                                "name":"同期患者人天数",
+                                "value":resultData.patient_stays
+                            },{   
+                                "name":"抗菌药物强度",
+                                "value":resultData.anti_drug_intensity
+                            }
+                        ];
+                    }
+                  },
+                  error:function(){
+                    gd.showError('合计数据，加载失败');
+                    gd.closeLoading();
+                  }
+                });
+                
+                indexVue.tableConfig4 = {
+                    id: 'resultTable4',
+                    length: 20, //每页多少条,默认50，可选
+                    curPage: 1, //当前页码，默认1，可选
+                    lengthMenu: [10, 30, 50, 100], 
+                    enablePaging: false,//启用分页,默认true，可选
+                    orderType: 'desc',//排序规则，desc或asc,默认desc
+                    columnResize:true,
+                    loading: true,
+                    ajax: {
+                        url: baseUrl+'/inpAntiDrugKindRanking/getDrugPharmacologyRanking',
+                        dataSrc: function (data) {
+                            gd.closeLoading();
+                            data.rows = data.rows.map(function (obj) {
+                                return [
+                                    obj.pharmacology_name,
+                                    obj.anti_drug_cost,
+                                    obj.anti_drug_ddds,
+                                    obj.patient_stays,
+                                    obj.anti_drug_intensity,
+                                    obj.pharmacology_id,
+                                    obj.product_kind_num,
+                                    obj.common_name_kind_num
+                                ]
+                            });
+                            return data;
+                        },
+                        //请求参数
+                        data: {
+                           param:JSON.stringify(sendData)
+                        }
+                    },
+                    columns: [
+                        {
+                            name: 'pharmacology_name',
+                            width:'11%',
+                            head: '药理分类名称',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'anti_drug_cost',
+                            width:'9%',
+                            head: '抗菌药品费用',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'anti_drug_ddds',
+                            width:'12%',
+                            head: '抗菌药品累计Ddd数',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'patient_stays',
+                            width:'13%',
+                            head: '同期收治患者人天数',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'anti_drug_intensity',
+                            width:'11%',
+                            head: '抗菌药物强度',
+                            orderable: true,
+                            align: 'center'
+                        },
+                        {
+                            name: 'pharmacology_id',
+                            width:'11%',
+                            head: '药理分类编码',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'product_kind_num',
+                            width:'11%',
+                            head: '药品品规数',
+                            orderable: true,
+                            align: 'center',
+                        },{
+                            name: 'common_name_kind_num',
+                            width:'11%',
+                            head: '通用名数',
+                            orderable: true,
+                            align: 'center',
+                        }
+                    ]
+                }
+            },
+            drugNameSelectFun:function(data){
+                if(!indexVue.drugNameSelectShow){
+                    indexVue.drugNameSelectShow = true;
+                    $("#nameSearchSelectDrop").html($("#ypmcBox").html());
+                    var ypmcBoxVue = new Vue({
+                        el:'#ypmcBoxList',
+                        data:{
+                             drugNameAll:[
+                                {
+                                    "id":"001",
+                                    "name":"名称1"
+                                },{
+                                    "id":"001",
+                                    "name":"名称2"
+                                },{
+                                    "id":"001",
+                                    "name":"名称3"
+                                },{
+                                    "id":"001",
+                                    "name":"名称4"
+                                },{
+                                    "id":"001",
+                                    "name":"名称5"
+                                }
+                            ]
+                        }
+                    })
+                }else{
+                    indexVue.drugNameSelectShow = false;
+                }
+            },
+
+            commonDrugNameSelectFun:function(data){
+                if(!indexVue.commonDrugNameSelectShow){
+                    indexVue.commonDrugNameSelectShow = true;
+                    $("#commonNameSearchSelectDrop").html($("#ypmcCommonBox").html());
+                    var ypmcCommonBoxVue = new Vue({
+                        el:'#ypmcCommonBoxList',
+                        data:{
+                              commonDrugNameAll:[
+                                {
+                                    "id":"001",
+                                    "name":"名称1"
+                                },{
+                                    "id":"001",
+                                    "name":"名称2"
+                                },{
+                                    "id":"001",
+                                    "name":"名称3"
+                                },{
+                                    "id":"001",
+                                    "name":"名称4"
+                                },{
+                                    "id":"001",
+                                    "name":"名称5"
+                                }
+                            ],
+                        }
+                    })
+                }else{
+                    indexVue.commonDrugNameSelectShow = false;
+                }
+            },
+            isSelectName:function(data){
+            },
+            deptSelectFun:function(data){
+                var deptVue;
+                var dom = gd.showLayer({
+                    id: 'windDept',//可传一个id作为标识
+                    title: '科室选择',//窗口标题
+                    content: $("#selectDeptBox").html(),
+                    size: [600, 500],
+                    btn: [{
+                        text: '确定',
+                        enter: true,//响应回车
+                        action: function (dom) {//参数为当前窗口dom对象
+                            indexVue.conditionVal.selectDeptNameArr = [];
+                            indexVue.conditionVal.selectDeptIdArr = [];
+                            $("#list-body .right-box li").each(function(){
+                                var id = $(this).data('id');
+                                var name = $(this).html();
+                                deptVue.deptObjOld.push({
+                                    "dept_code":id,
+                                    "dept_name":name
+                                })
+                                indexVue.conditionVal.selectDeptIdArr.push(id);
+                                indexVue.conditionVal.selectDeptNameArr.push(name)
+                            })
+                            indexVue.conditionVal.selectDeptNameVal = indexVue.conditionVal.selectDeptNameArr.join(';');
+                        }
+                    }, {
+                        text: '取消',
+                        action: function () {
+                            gd.showSuccess('你点了取消');
+                        }
+                    }],
+                    success: function (dom) {
+                        deptVue = new Vue({
+                            el:"#deptSelect",
+                            data: {
+                                deptObj:[],
+                                dept_name:"",
+                                deptObjOld:[]
+                            },
+                            methods:{
+                                searchDeptDic:function(data){
+                                    //科室字典
+                                    $.ajax({
+                                        url:baseUrl + '/dic/getDeptDic',
+                                        type:'GET',
+                                        data:{dept_name:deptVue.dept_name},
+                                        contentType: "application/json",
+                                        beforeSend: function(){
+                                            gd.showLoading('加载中,请稍后…');
+                                        },
+                                        success:function(res){
+                                            gd.closeLoading();
+                                            if(res.code !=0){
+                                                gd.showError('科室字典，加载失败');
+                                            }else{
+                                                deptVue.deptObj = res.data.rows;
+                                                $('#windDept #deptSelect').initList({
+                                                    openDrag: false,
+                                                    openDblClick: true
+                                                });
+                                            }
+                                        },
+                                        error:function(){
+                                            gd.showError('科室字典，加载失败');
+                                            gd.closeLoading();
+                                        }
+                                    })
+                                }
+                            },
+                            mounted:function(){
+                                //科室字典
+                                $.ajax({
+                                    url:baseUrl + '/dic/getDeptDic',
+                                    type:'GET',
+                                    contentType: "application/json",
+                                    beforeSend: function(){
+                                        gd.showLoading('加载中,请稍后…');
+                                    },
+                                    success:function(res){
+                                        gd.closeLoading();
+                                        if(res.code !=0){
+                                             gd.showError('科室字典，加载失败');
+                                        }else{
+                                            deptVue.deptObj = res.data.rows;
+                                            deptVue.$nextTick(() => {
+                                                $('#windDept #deptSelect').initList({
+                                                    openDrag: false,
+                                                    openDblClick: true
+                                                });
+                                            });
+                                        }
+                                    },
+                                    error:function(){
+                                        gd.showError('科室字典，加载失败');
+                                        gd.closeLoading();
+                                    }
+                                })                            
+                            }
+                        })
+                    }
+                });
+
+            },
+            yaolifenleiSelectFun:function(){
+                var ylflVue;
+                gd.showLayer({
+                    id: 'windYLFL',
+                    title: '药理分类',
+                    content: $('#selectYaolifenleiBox').html(),
+                    size: [600, 500],
+                    btn: [{
+                            text: '确 定',
+                            enter: true, //响应回车
+                            action: function(dom) {
+                                var treeCon = ylflVue.ylflListCon;
+                                for(i=0;i<treeCon.length;i++){
+                                    indexVue.conditionVal.ylflIdArr.push(treeCon[i].id);
+                                    indexVue.conditionVal.ylflNameArr.push(treeCon[i].name);
+                                }
+                                indexVue.conditionVal.ylflNameVal = indexVue.conditionVal.ylflNameArr.join(";")
+                            }
+                        },{
+                            text: '取 消',
+                            enter: true, //响应回车
+                            action: function(dom) {
+                            }
+                        }
+                    ],
+                    success: function(dom) {
+                        ylflVue = new Vue({
+                            el:"#selectYlflCon",
+                            data: {
+                                ylflListCon:[],
+                                treeConfig: {
+                                    id: 'treeBox',
+                                    simpleData: true,
+                                    showCheckBox: true,
+                                    linkable: true,//默认是true 父子联动
+                                    data: [],
+                                    onSelect: function (node) {
+                                    },
+                                    onChange: function (nodes) {
+                                        ylflVue.ylflListCon = nodes;
+                                    },
+                                    ready: function (data) {
+                                    }
+                                }
+                            }
+                        })
+                    }
+                })
+
+                $.ajax({
+                    url:baseUrl + '/dic/getPharmacologyCategoryDicList',
+                    type:'GET',
+                    contentType: "application/json",
+                    success:function(data){
+                        var datas=data.data.rows;
+                        var len=datas.length;
+                        for( i = 0; i < len; i++) {
+                            if (datas[i].pid=='0') {
+                                datas[i].pid = null;
+                            }
+                        }
+                        gd.tree('treeBox').setData(datas);
+                    }
+                })
+            },
+            // 导出
+            dataExport:function(data,name){
+                var url = '';
+                switch(name){
+                    case "科室排名":
+                        url = baseUrl +'/inpAntiDrugDeptRanking/queryDeptRankingExcel'
+                        break;
+                    case "药品排名（品名）":
+                        url = baseUrl + '/inpAntiDrugKindRanking/getDrugProductRankingExcel'
+                        break;
+                    case "药品排名（通用名）":
+                        url = baseUrl + '/inpAntiDrugKindRanking/getDrugCommonNameRankingExcel'
+                        break;
+                    case "药理排名（药理分类）":
+                        url = baseUrl + '/inpAntiDrugKindRanking/getDrugPharmacologyRankingExcel'
+                        break;
+                }
+                var form = $("<form>");
+                form.attr('style', 'display:none');
+                form.attr('target', '');
+                form.attr('method', 'post');
+                form.attr('action', url);
+                var inputParam = $('<input>');
+                inputParam.attr('type', 'hidden');
+                inputParam.attr('name', 'query_guid');
+                inputParam.attr('value', JSON.parse(data).query_guid);
+                $('body').append(form);
+                form.append(inputParam);
+                form.submit();
+                form.remove(); 
+            }
+        },
+        mounted:function(){
+        }
+    });
+
+    //院区字典
+    $.ajax({
+        url:baseUrl + '/dic/getHospitalDistrictDic',
+        type:'GET',
+        contentType: "application/json",
+        success:function(res){
+            indexVue.hospital_district_list = res.data.rows;
+        }
+    })
+    
+    //自定义药品分类字典
+    // $.ajax({
+    //     url:baseUrl + '/dic/getCustomDrugCategoryDic',
+    //     type:'GET',
+    //     contentType: "application/json",
+    //     success:function(res){
+    //         indexVue.customCategoryList = res.data.rows;
+    //     }
+    // })
+
+
+    
+</script>
+
+<script type="text/javascript" src="./public/list-script.js"></script>
+
+</body>
+</html>
