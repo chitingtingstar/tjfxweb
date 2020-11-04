@@ -511,10 +511,12 @@
                                 },{   
                                 "name":"同期收治患者人天数",
                                 "value":resultData.patient_person_days
-                                },{
-                                "name":"药理分类数",
-                                "value":resultData.pharmacology_kind_num
-                                },{
+                                },
+                                // {
+                                // "name":"药理分类数",
+                                // "value":resultData.pharmacology_kind_num
+                                // },
+                                {
                                 "name":"药品通用名数",
                                 "value":resultData.common_name_kind_num
                                 },{
@@ -624,11 +626,12 @@
                             head: '同期收治患者人天数',
                             align: 'center',
                         },
+                        // {
+                        //     name: "pharmacology_kind_num",
+                        //     width:'7%',
+                        //     head: '药理分类数',
+                        // },
                         {
-                            name: "pharmacology_kind_num",
-                            width:'7%',
-                            head: '药理分类数',
-                        },{
                             name: 'common_name_kind_num',
                             width:'8%',
                             head: '药品通用名数',
@@ -700,10 +703,12 @@
                         gd.closeLoading();
                     }else{
                         var resultData = result.data.rows[0];
-                        indexVue.resultTitle[key].totalPart = [{
-                            "name":"药理分类数",
-                            "value":resultData.pharmacology_kind_num
-                        },{
+                        indexVue.resultTitle[key].totalPart = [
+                        // {
+                        //     "name":"药理分类数",
+                        //     "value":resultData.pharmacology_kind_num
+                        // },
+                        {
                             "name":"品规数",
                             "value":resultData.product_kind_num
                         },{
@@ -900,10 +905,12 @@
                         gd.closeLoading();
                     }else{
                         var resultData = result.data.rows[0];
-                        indexVue.resultTitle[key].totalPart = [{
-                                "name":"药理分类数",
-                                "value":resultData.pharmacology_kind_num
-                            },{
+                        indexVue.resultTitle[key].totalPart = [
+                            // {
+                            //     "name":"药理分类数",
+                            //     "value":resultData.pharmacology_kind_num
+                            // },
+                            {
                                 "name":"品规数",
                                 "value":resultData.product_kind_num
                             },{
@@ -1061,10 +1068,11 @@
                     }else{
                         var resultData = result.data.rows[0];
                         indexVue.resultTitle[key].totalPart = [
+                            // {
+                            //     "name":"药理分类数",
+                            //     "value":resultData.pharmacology_kind_num
+                            // },
                             {
-                                "name":"药理分类数",
-                                "value":resultData.pharmacology_kind_num
-                            },{
                                 "name":"品规数",
                                 "value":resultData.product_kind_num
                             },{

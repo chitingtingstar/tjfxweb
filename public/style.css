@@ -616,16 +616,16 @@ i.font_family.icon-fa-close {
     font-size:14px;
 }
 .section-one-ul li.dept{
-    width:10%;
+    width:11%;
 }
 .section-one-ul li.product{
-    width:12%;
-}
-.section-one-ul li.commonName{
     width:14%;
 }
+.section-one-ul li.commonName{
+    width:16%;
+}
 .section-one-ul li.pharmacology{
-    width:12%;
+    width:14%;
 }
 
 
