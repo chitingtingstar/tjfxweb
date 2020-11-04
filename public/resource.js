@@ -2,7 +2,7 @@
 //css资源
 var resource = [];
 
-var baseUrl = 'http://192.168.253.223:8080';
+var baseUrl = 'http://192.168.253.43:8080';
 
 resource = [
     './public/plugins/css/gdui.min.css',
